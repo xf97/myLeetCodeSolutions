@@ -15,9 +15,9 @@ public:
     //_row，开始操作的行
     void backtrack(vector<vector<string>> & _solutions, vector<int> & _queens, int n, int row, unordered_set<int> & _columns, unordered_set<int> & _dia1, unordered_set<int> & _dia2){
         if(row == n){
-            //如果已经试探完了最后一行，则产生结果，记录入结果
+            //如果已经试探完了最后一行，则产生结果，记录入解决方案
             vector<string> board = generateBoard(_queens, n);
-            _solutions.push_back(board); //压入结果数组
+            _solutions.push_back(board); //压入解决方案数组
         }
         else{
             for(int i = 0; i < n; i++){
