@@ -1,7 +1,4 @@
 class Solution:
-    '''
-    自己做出来的，高兴！
-    '''
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         self.temp = list()
         self.result = list(list())
