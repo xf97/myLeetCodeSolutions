@@ -1,4 +1,31 @@
 class Solution {
+        /*
+         * 官方题解：
+         * 时间击败：45.65%
+         * 空间击败：10.41%
+    public:
+    vector<int> temp;
+    vector<vector<int>> ans;
+
+    void dfs(int cur, int n, int k, int sum) {
+        if (temp.size() + (n - cur + 1) < k || temp.size() > k) {
+            return;
+        }
+        if (temp.size() == k && accumulate(temp.begin(), temp.end(), 0) == sum) {
+            ans.push_back(temp);
+            return;
+        }
+        temp.push_back(cur);
+        dfs(cur + 1, n, k, sum);
+        temp.pop_back();
+        dfs(cur + 1, n, k, sum);
+    }
+
+    vector<vector<int>> combinationSum3(int k, int n) {
+        dfs(1, 9, k, n);
+        return ans;
+    }*/
+
 	/*
 	时间击败：6.03%
 	空间击败：5.10%
