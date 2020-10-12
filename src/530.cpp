@@ -14,6 +14,7 @@ class Solution {
     2. 不错，补充，最小绝对值还可以出现在两个地方，左子树的最右叶子和根节点，右子树的最左节点和根节点--错误
     3. 最土方法，遍历，获得一个新节点，就计算一次新的最小绝对值
     */
+    //哇，新知识，搜索二叉树中序遍历是有序的递增数组
     //time consuming: less than 1 hour
 public:
     int getMinimumDifference(TreeNode* root) {
