@@ -1,4 +1,7 @@
 class Solution {
+//time defeat: 13.57%
+//space defeat: 42.42%
+//time consuming: 1 hour
 public:
     //逐步删除，会导致超时，使用官方题解，通过连通性的方法解题
     //深度搜索
