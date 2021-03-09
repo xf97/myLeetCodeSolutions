@@ -10,6 +10,7 @@ class Solution:
         if not S:
             return S
         else:
+            '''
             #普适情况
             #能否用栈来实现？
             #使用list来模拟栈
@@ -33,3 +34,20 @@ class Solution:
             for i in stackList[::-1]:
                 result += i
             return result
+            '''
+            #改一下代码优化一下效率
+            #把队尾定义成栈顶不就可以不逆序了
+            '''
+            搞定
+            time defeat: 91.27%
+            space defeat: 15.26%
+            '''
+            stackList = list()
+            for ch in S:
+                #只有在非空栈，且栈顶元素和现在元素相等时，才出栈
+                if stackList and ch == stackList[-1]:
+                    stackList.pop()
+                else:
+                    #统一在队尾进行操作
+                    stackList.append(ch)
+            return "".join(stackList)
