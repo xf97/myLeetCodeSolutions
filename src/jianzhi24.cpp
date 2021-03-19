@@ -16,6 +16,7 @@ public:
         时间击败：71.31%
         空间击败：41.77%
         */
+        /*
         //边界条件
         if(head == nullptr || head->next == nullptr){
             return head;
@@ -40,6 +41,33 @@ public:
             }
             temp->next = nullptr;
             return newHead;
+        }
+        */
+        //现在用循环的方法再做一遍
+        //考虑链表1-2-3-4，要同时记录被逆转节点的前后节点
+        //然后指针指向前一个结点，再往前挪动
+        //处理边界情况
+        //时间击败：68.95%，空间击败：90.52%
+        if(head == nullptr || head->next == nullptr){
+            return head;
+        }
+        else{
+            ListNode * preNode = nullptr;
+            ListNode * nowNode = head;
+            ListNode * reverseHead = nullptr;
+            //要考虑尾节点这个情况
+            while(nowNode != nullptr){
+                ListNode * nextNode = nowNode->next;
+                if(nextNode == nullptr){
+                    //原来的尾节点会变成逆转后的头节点
+                    reverseHead = nowNode;
+                }
+                nowNode->next = preNode;
+                //向前挪
+                preNode = nowNode;
+                nowNode = nextNode;
+            }
+            return reverseHead;
         }
     }
 };
