@@ -6,33 +6,31 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-//time defeat: 88%
-//space defeat: 99%
 class Solution {
 public:
+    //感觉上一次是看了答案写的，这次我自己写
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        //归并排序
-        ListNode * firstNode = new ListNode(0);   //firstNode是伪头节点
-        ListNode * curNode = firstNode;
-        //开始归并
-        while(l1 != nullptr && l2 != nullptr){
-            if(l1->val <= l2->val){
-                curNode->next = l1;
-                l1 = l1->next;
-            }
-            else{
-                curNode->next = l2;
-                l2 = l2->next;
-            }
-            curNode = curNode->next;
-        }
-        //当跳出循环是，必定一个为空
+        //归并排序，这个问题可以用递归的方法解决，因为缩小后的问题与原问题是一类问题
+        //空链表处理
+        //一次通过，时间击败：76.89%，空间击败：48.60%
         if(l1 == nullptr){
-            curNode->next = l2;
+            return l2;
+        }
+        if(l2 == nullptr){
+            return l1;
+        }
+        //然后就谁小要谁
+        ListNode * mergedNode = nullptr;
+        //注意升序
+        if(l1->val <= l2->val){
+            mergedNode = l1;
+            //推进一个节点
+            mergedNode->next = mergeTwoLists(l1->next, l2);
         }
         else{
-            curNode->next = l1;
+            mergedNode = l2;
+            mergedNode->next = mergeTwoLists(l1, l2->next);
         }
-        return firstNode->next;
+        return mergedNode;
     }
 };
