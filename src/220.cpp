@@ -12,7 +12,7 @@ public:
             //维护一个长度为k的滑动窗口
             //使用有序集合，保持插入的顺序
             //三十分钟，两次提交，时间击败：14.83%，空间击败：5.80%
-            set<int> slideWindow;
+            set<long> slideWindow;
             //开始维护窗口
             for(int i = 0; i < nums.size(); i++){
                 //判断，在左侧的滑动窗口里，有没有值是符合要求的
@@ -20,10 +20,9 @@ public:
                 //lower_bound二分查找，返回的是大于等于参数的最小数字
                 //如果找到，就满足要求
                 //同时要避免是自己本身，已经保证不等于本身
-                //使用INT_MIN和INT_MAX来避免溢出
                 //并且分段讨论了绝对值
-                auto iter = slideWindow.lower_bound(max(nums[i], INT_MIN + t) - t);
-                if (iter != slideWindow.end() && *iter <= min(nums[i], INT_MAX - t) + t) {
+                auto iter = slideWindow.lower_bound((static_cast<long>(nums[i]) - t));
+                if (iter != slideWindow.end() && static_cast<long>(*iter) <= (static_cast<long>(nums[i]) + t)) {
                     return true;
                 }
                 //插入元素
