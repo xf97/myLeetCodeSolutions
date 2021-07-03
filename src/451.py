@@ -1,6 +1,7 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
         #第一个想到的办法是哈希表
+        #做完以后开了题解，还有个桶排序，学到了
         if len(s) <= 2:
             #边界处理
             return s
