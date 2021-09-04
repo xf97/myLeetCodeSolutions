@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     //以后可以尝试使用全局变量来记录递归值
@@ -29,47 +30,54 @@ public:
         dfs(1, n, k);
         return ans;
     }
-
-        /*
-        被垃圾C++折磨 的一天（好久不打全忘了）
-        报错报的莫名其妙
-       vector<vector<int> > result;
-        vector valid(n, 0);
-        vector<int>temp;
-        for(int i = 0; i < valid.size(); i++){
-            valid[i] = (i + 1);
+};
+*/
+class Solution {
+private:
+    void dfs(int first, int curr, int limit, int length, vector<int> path, vector<vector<int>> & result, const vector<int> & nums){
+        //要剪枝
+        //剩余的长度不可能构造出我需要的长度
+        if(limit - curr > length - first){
+            return;
         }
-        iota(begin(valid), end(valid), 1);
-        for(int i = 1; i <= n; i++){
-            temp.push_back(i);
-            valid[i - 1] = 0;
-            recFind(result, valid, k, temp, 1);
-            iota(begin(valid), end(valid), 1);
-            //重新复制有效位数组
+        else if(curr == limit){
+            //递归终点
+            result.emplace_back(path);
+            return;
         }
-        return result;
-    }
-    
-    void recFind(vector<vector<int>> &  _res, vector<int> _valid, const int _k, const vector<int> _nowRes, const int _nowLev){
-        if(_nowLev == _k){
-            //达到长度
-            _res.push_back(_nowRes);
+        else if(first == length){
+            //超限
             return;
         }
         else{
-            for(int i = 0;i <= _valid.size(); i++){
-                if(_valid[i] != 0){
-                    auto temp = _nowRes;
-                    temp.push_back(_valid[i]);
-                    _valid[i] = 0;
-                    recFind(_res, _valid, _k, temp, _nowLev + 1);
-                }
-                else{
-                    continue;
-                }
-            }
+            //压入本元素
+            path.emplace_back(nums[first]);
+            dfs(first + 1, curr + 1, limit, length, path, result, nums);
+            //弹出本元素
+            path.pop_back();
+            dfs(first + 1, curr, limit, length, path, result, nums);
+            return;
         }
-        return;
     }
-    */
+public:
+    vector<vector<int>> combine(int n, int k) {
+        //干翻出这个题的公司
+        //感觉探索加回溯
+        //十分钟，一起提交，超时，26/27
+        //十二分钟，两次提交，时间击败-11.76%，空间击败-7.69%
+        vector<int> nums(n, 0);
+        for(int i = 1; i <= n; ++ i){
+            nums[i - 1] = i;
+        }
+        vector<vector<int>> result;
+        if(k == n){
+            result.emplace_back(nums);
+            return result;
+        }
+        //相当于从nums中选k个数
+        vector<int> path;
+        //开始dfs
+        dfs(0, 0, k, n, path, result, nums);
+        return result;
+    }
 };
