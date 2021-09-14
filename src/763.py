@@ -1,9 +1,49 @@
 class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        #先搜一遍，确定每个元素出现的第一个和最后一个位置
+        #二十分钟，一次提交，时间击败-68.49%，空间-19.29%
+        charAndIndex = dict()
+        for index, i in enumerate(s):
+            if i in charAndIndex:
+                charAndIndex[i][1] = index
+            else:
+                charAndIndex[i] = [index, index]
+        #print(charAndIndex)
+        #然后，合并区间
+        interval = sorted(list(charAndIndex.values()))
+        #print(interval)
+        result = list() #合并后的区间
+        length = len(interval)
+        index = 0
+        while index < length:
+            start, end = interval[index][0], interval[index][1]
+            nex = index + 1
+            #print(index)
+            while nex < length:
+                #print(nex, "***")
+                if interval[nex][0] >= start and interval[nex][1] <= end:
+                    #包含
+                    nex += 1
+                elif interval[nex][0] >= start and interval[nex][0] < end and interval[nex][1] > end:
+                    #交叉
+                    end = interval[nex][1]
+                    nex += 1
+                else:
+                    #不包含
+                    result.append([start, end])
+                    break
+            if nex == length:
+                #处理末尾情况
+                result.append([start, end])
+            index = nex
+        #print(result)
+        return [(i[1] - i[0] + 1) for i in result]
     '''
     不是很能理解题目的内核是什么，不管什么，同一个字母的出现区间信息应该还是需要的
     但我还是做出来了
     time defeat: 99.21%
     space defeat: 5.01%
+    '''
     '''
     def partitionLabels(self, S: str) -> List[int]:
         appearIndex = dict()
@@ -48,3 +88,4 @@ class Solution:
             else:
                 result.append(item[1] - item[0] + 1)
         return result
+        '''
