@@ -3,6 +3,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+'''
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
         #昨天面试字节碰上了它的高级题，力扣25，我先来欺负下它的小弟
@@ -37,4 +38,28 @@ class Solution:
             #向下
             self.re_reverseList(_head, prevNode)
             return
+     '''
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        '''
+        来来来，干翻微软
+        '''
+        #边界处理
+        #十分钟，一次提交，时间击败-83.37%，空间击败-94.71%
+        if head == None or head.next == None:
+            return head
+        #开始翻转
+        prev = None #前节点
+        curr = head
+        while curr:
+            nex = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nex
+        return prev
 
